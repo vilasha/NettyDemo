@@ -1,6 +1,7 @@
 package com.nettydemo.client.async;
 
 import com.nettydemo.common.Packer;
+import com.nettydemo.common.entities.LoginMessage;
 import com.nettydemo.common.entities.RequestMessage;
 import com.nettydemo.common.Utils;
 import io.netty.bootstrap.Bootstrap;
@@ -45,7 +46,17 @@ public class AsyncClient {
                     List<Integer> content = new ArrayList<>();
                     for (int i = 0; i < 1000; i++)
                         content.add(i);
-                    sendAsComposite(ch, lastFuture, content);
+                    sendAsComposite(ch, lastFuture, content, "echo");
+                } else if("login1".equals(line)) {
+                    LoginMessage login = new LoginMessage();
+                    login.setLogin("login");
+                    login.setPassword("password");
+                    sendAsComposite(ch, lastFuture, login, "login");
+                } else if("login2".equals(line)) {
+                    LoginMessage login = new LoginMessage();
+                    login.setLogin("asdfa");
+                    login.setPassword("dghjrt4");
+                    sendAsComposite(ch, lastFuture, login, "login");
                 } else if ("bye".equals(line)) {
                     ch.writeAndFlush(line + "\r\n");
                     ch.closeFuture().sync();
@@ -63,9 +74,9 @@ public class AsyncClient {
         }
     }
 
-    private static void sendAsComposite(Channel ch, ChannelFuture lastFuture, Object content) throws InterruptedException {
+    private static void sendAsComposite(Channel ch, ChannelFuture lastFuture, Object content, String serviceId) throws InterruptedException {
         Packer p = new Packer();
-        String[] packed = p.pack(content, content.getClass(), RequestMessage.class, "echo");
+        String[] packed = p.pack(content, content.getClass(), RequestMessage.class, serviceId);
         lastFuture = ch.writeAndFlush("compositeMessage=" + String.valueOf(packed.length) + "\r\n");
         if (lastFuture != null)
             lastFuture.sync();

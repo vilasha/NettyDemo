@@ -1,29 +1,59 @@
 package com.nettydemo.client.async;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import com.nettydemo.common.Packer;
+import com.nettydemo.common.entities.ResponseMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.CharsetUtil;
 
-/**
- * Class implements the client’s processing
- * of data received from the client and its business logic
- */
-@ChannelHandler.Sharable // i.e. one instance can be shared by multiple channels
-public class AsyncClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Netty demo for Serverside", CharsetUtil.UTF_8));
-        System.out.println("Message has been sent");
+@ChannelHandler.Sharable
+public class AsyncClientHandler extends SimpleChannelInboundHandler<String> {
+
+    private static Logger log = Logger.getLogger(AsyncClientHandler.class.getName());
+
+    static {
+        FileHandler logHandler;
+        try {
+            logHandler = new FileHandler("client.log", true);
+            logHandler.setFormatter(new SimpleFormatter());
+            log.addHandler(logHandler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    private boolean readingMultiple = false;
+    private int packageCounter;
+    private String[] multiplePackage;
+
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) {
-        // Log received message
-        System.out.println("Client received and answer: " + byteBuf.toString(CharsetUtil.UTF_8));
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) {
+        if(msg.toLowerCase().contains("compositemessage")) {
+            int totalPackages = Integer.parseInt(msg.substring(msg.indexOf('=')+1));
+            packageCounter = 0;
+            readingMultiple = true;
+            multiplePackage = new String[totalPackages];
+//            System.out.println("composite message " + totalPackages);
+        } else if (readingMultiple) {
+            if (packageCounter < multiplePackage.length - 1) {
+                multiplePackage[packageCounter] = msg;
+                packageCounter++;
+            } else {
+                multiplePackage[packageCounter] = msg;
+                readingMultiple = false;
+                Packer p = new Packer();
+                ResponseMessage message = (ResponseMessage) p.unpack(multiplePackage);
+                log.info("Received a message: " + message.toString());
+                log.info("Content type: " + message.getMessageBodyType().getName()
+                        + "; value: " + message.getMessageBody().toString());
+            }
+        } else
+            System.out.println(msg);
     }
 
     @Override

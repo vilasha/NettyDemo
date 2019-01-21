@@ -1,25 +1,14 @@
-package com.nettydemo.common;
+package com.nettydemo.common.entities;
 
 import java.io.Serializable;
 
 public class RequestMessage implements Serializable, Cloneable {
-    private int messageLength;
     private String senderIp;
     private String serviceId;
     private String messageGuid;
     private long requestTime;
-    private long messageNum;
-    private long totalMessages;
-    private String messageBody;
+    private Object messageBody;
     private Class messageBodyType;
-
-    public int getMessageLength() {
-        return messageLength;
-    }
-
-    public void setMessageLength(int messageLength) {
-        this.messageLength = messageLength;
-    }
 
     public String getSenderIp() {
         return senderIp;
@@ -53,28 +42,12 @@ public class RequestMessage implements Serializable, Cloneable {
         this.requestTime = requestTime;
     }
 
-    public String getMessageBody() {
+    public Object getMessageBody() {
         return messageBody;
     }
 
-    public void setMessageBody(String messageBody) {
+    public void setMessageBody(Object messageBody) {
         this.messageBody = messageBody;
-    }
-
-    public long getMessageNum() {
-        return messageNum;
-    }
-
-    public void setMessageNum(long messageNum) {
-        this.messageNum = messageNum;
-    }
-
-    public long getTotalMessages() {
-        return totalMessages;
-    }
-
-    public void setTotalMessages(long totalMessages) {
-        this.totalMessages = totalMessages;
     }
 
     public Class getMessageBodyType() {
@@ -88,14 +61,10 @@ public class RequestMessage implements Serializable, Cloneable {
     @Override
     public String toString() {
         return "RequestMessage{" +
-                "messageLength=" + messageLength +
-                ", senderIp='" + senderIp + '\'' +
+                "senderIp='" + senderIp + '\'' +
                 ", serviceId='" + serviceId + '\'' +
                 ", messageGuid='" + messageGuid + '\'' +
                 ", requestTime=" + requestTime +
-                ", messageNum=" + messageNum +
-                ", totalMessages=" + totalMessages +
-                ", messageBody='" + messageBody + '\'' +
                 ", messageBodyType=" + messageBodyType +
                 '}';
     }

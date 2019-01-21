@@ -1,7 +1,7 @@
 package com.nettydemo.server;
 
-import com.nettydemo.common.RequestMessage;
-import com.nettydemo.common.ResponseMessage;
+import com.nettydemo.common.entities.RequestMessage;
+import com.nettydemo.common.entities.ResponseMessage;
 import com.nettydemo.common.Utils;
 
 import java.net.InetAddress;
@@ -31,7 +31,7 @@ public abstract class MessageProcessor {
             message.setMessageGuid(Utils.getInstance().getNextMessageId());
             message.setResponseTime(Utils.getInstance().getCurrentDateTime());
             message.setMessageBody(input.getMessageBody());
-            message.setMessageLength(message.toString().length());
+            message.setMessageBodyType(input.getMessageBodyType());
             message.setResponseCode('S');
         } catch (Exception ex) {
             message.setResponseCode('F');

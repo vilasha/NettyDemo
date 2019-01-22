@@ -1,73 +1,107 @@
 package com.nettydemo.performance;
 
 import java.io.*;
-import java.util.Arrays;
+import java.net.URISyntaxException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class AsyncConnectionPerformanceTest {
 
-    private AsyncConnectionPerformanceTest() {};
+    private AsyncConnectionPerformanceTest() {}
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-/*        String[] serverCommands = new String[3];
-        serverCommands[0] = "cmd";
-        serverCommands[1] = "cd C:\\DocumentsPC\\Upwork\\contracts\\Netty\\project\\src\\test\\resources\\";
-        serverCommands[2] = "java -jar asyncServer.jar";
-        ProcessBuilder server = new ProcessBuilder(serverCommands);*/
-        ProcessBuilder pb1 = new ProcessBuilder("java", "-jar", "C:\\DocumentsPC\\Upwork\\contracts\\Netty\\project\\src\\test\\resources\\asyncServer.jar");
-        Process process1 = pb1.start();
-        InputStream is1 = process1.getInputStream();
-        InputStreamReader isr1 = new InputStreamReader(is1);
-        BufferedReader br1 = new BufferedReader(isr1);
-        String line;
-        System.out.println(1);
-/*        do {
-            line = br1.readLine();
-            System.out.println("Server: " + line);
-        } while (line != null && !line.equals(""));*/
-        System.out.println(2);
-        OutputStream os1 = process1.getOutputStream();
-        OutputStreamWriter osw1 = new OutputStreamWriter(os1);
-        System.out.println(3);
+    private static Logger log = Logger.getLogger(AsyncConnectionPerformanceTest.class.getName());
 
-        ProcessBuilder pb2 = new ProcessBuilder("java", "-jar", "C:\\DocumentsPC\\Upwork\\contracts\\Netty\\project\\src\\test\\resources\\asyncClient.jar");
-        Process process2 = pb2.start();
-        InputStream is2 = process2.getInputStream();
-        InputStreamReader isr2 = new InputStreamReader(is2);
-        BufferedReader br2 = new BufferedReader(isr2);
-        System.out.println(4);
-/*        do {
-            line = br2.readLine();
-            System.out.println("Server: " + line);
-        } while (line != null && !line.equals(""));*/
-        System.out.println(5);
-        OutputStream os2 = process2.getOutputStream();
-        OutputStreamWriter osw2 = new OutputStreamWriter(os2);
-        System.out.println(6);
-        for (int i = 0; i < 7; i++) {
-            line = br2.readLine();
-            System.out.println("Client: " + line);
-        }
-        System.out.println(7);
-        osw2.write("login1\n\r");
-        osw2.flush();
-        System.out.println(8);
-        while ((line = br2.readLine()) != null) {
-            System.out.println(line);
+    static {
+        FileHandler logHandler;
+        try {
+            logHandler = new FileHandler("performanceTest.log", true);
+            logHandler.setFormatter(new SimpleFormatter());
+            log.addHandler(logHandler);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private static String output(InputStream inputStream) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(inputStream));
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                sb.append(line + System.getProperty("line.separator"));
-            }
-        } finally {
-            br.close();
+    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
+
+        String absolutePath = new File(AsyncConnectionPerformanceTest.class.getProtectionDomain().getCodeSource().getLocation()
+                .toURI()).getPath();
+        System.out.println(absolutePath);
+
+        ProcessBuilder pb1 = new ProcessBuilder("java", "-jar", absolutePath + "\\asyncServer.jar");
+        Process process1 = pb1.start();
+        attachErrorStreamReader(process1);
+
+        ProcessBuilder pb2 = new ProcessBuilder("java", "-jar", absolutePath + "\\asyncClient.jar");
+        long startTime, endTime;
+        startTime = System.currentTimeMillis();
+        Process process2 = pb2.start();
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(process2.getOutputStream()));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+        String line;
+        if ((line = bufferedReader.readLine()) != null) {
+            endTime = System.currentTimeMillis();
+            System.out.println("Client: " + line);
+            log.info("Client boot time = " + (endTime - startTime) + "ms");
         }
-        return sb.toString();
+
+        attachErrorStreamReader(process2);
+
+
+        bufferedWriter.write("login1\r\n");
+        bufferedWriter.flush();
+        if ((line = bufferedReader.readLine()) != null)
+            System.out.println("Client: " + line);
+
+        int maxZeros = 5;
+        for (int i = 0; i <= maxZeros; i++) {
+            startTime = System.currentTimeMillis();
+            bufferedWriter.write("list" + (int)Math.pow(10, i) + "\r\n");
+            bufferedWriter.flush();
+            while ((line = bufferedReader.readLine()) == null) {
+                if (System.currentTimeMillis() - startTime > 20000) {
+                    System.out.println("Force stop");
+                    break;
+                }
+                Thread.sleep(10);
+            }
+            endTime = System.currentTimeMillis();
+            System.out.println("Client: " + line);
+            log.info("IntList with " + (int)Math.pow(10, i) + " elements: " + (endTime - startTime) + "ms");
+            System.out.println("waiting...");
+            if (System.currentTimeMillis() - startTime > 20000) {
+                System.out.println("Force stop");
+                break;
+            }
+            System.out.println("--");
+        }
+        System.out.println("--");
+        startTime = System.currentTimeMillis();
+        bufferedWriter.write("bye\r\n");
+        bufferedWriter.flush();
+        while ((line = bufferedReader.readLine()) == null)
+            Thread.sleep(10);
+        endTime = System.currentTimeMillis();
+        System.out.println("Client: " + line);
+        log.info("Client shutdown time: " + (endTime - startTime) + "ms");
+
+        bufferedReader.close();
+        bufferedWriter.close();
+        process1.destroy();
+    }
+
+    private static void attachErrorStreamReader(Process process1) {
+        new Thread(() -> {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process1.getErrorStream()));
+            String line1;
+            try {
+                while ((line1 = bufferedReader.readLine()) != null){
+                    //System.out.println("Server: " + line1);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

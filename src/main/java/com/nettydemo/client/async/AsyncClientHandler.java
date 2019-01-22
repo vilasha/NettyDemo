@@ -49,6 +49,7 @@ public class AsyncClientHandler extends SimpleChannelInboundHandler<String> {
                 Codec p = new Codec();
                 ResponseMessage message = (ResponseMessage) p.unpack(multiplePackage);
                 log.info("Received a message: " + message.toString());
+                System.out.println("Message header: " + message.toString());
                 log.info("Content type: " + message.getMessageBodyType().getName()
                         + "; value: " + message.getMessageBody().toString());
             }

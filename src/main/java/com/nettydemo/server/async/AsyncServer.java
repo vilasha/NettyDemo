@@ -2,6 +2,7 @@ package com.nettydemo.server.async;
 
 import com.nettydemo.common.Utils;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -23,8 +24,9 @@ public class AsyncServer {
                     .option(ChannelOption.SO_BACKLOG, 100)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new AsyncServerInitializer());
-
-            serverBootstrap.bind(PORT).sync().channel().closeFuture().sync();
+            Channel ch = serverBootstrap.bind(PORT).sync().channel();
+            System.out.println("Waiting for clients");
+            ch.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
             workGroup.shutdownGracefully();

@@ -35,13 +35,9 @@ public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.write("Welcome to " + InetAddress.getLocalHost().getHostName() + "!\r\n");
-        ctx.write("It is " + new Date() + " now.\r\n");
-        ctx.write("Type \"list\" to send an Array List to server and echo it back\r\n");
-        ctx.write("Type \"login1\" for correct login attempt\r\n");
-        ctx.write("Type \"login2\" for incorrect login attempt\r\n");
-        ctx.write("Type \"bye\" to close the connection and stop Client application\r\n");
-        ctx.write("Type any other command to echo it back 5 times\r\n");
+        ctx.write("Connected to " + InetAddress.getLocalHost().getHostName()
+                + " at " + new Date()
+                + ". Available commands: \"list\", \"login1\", \"login2\", \"bye\"\r\n");
         ctx.flush();
     }
 

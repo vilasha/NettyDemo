@@ -42,9 +42,10 @@ public class AsyncClient {
                     break;
                 }
 
-                if ("list".equals(line)) {
+                if (line.contains("list")) {
+                    Integer size = Integer.parseInt(line.substring(4));
                     List<Integer> content = new ArrayList<>();
-                    for (int i = 0; i < 10000; i++)
+                    for (int i = 0; i < size; i++)
                         content.add(i);
                     sendAsComposite(ch, lastFuture, content, "echo");
                 } else if("login1".equals(line)) {

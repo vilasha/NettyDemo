@@ -44,7 +44,7 @@ public class AsyncClient {
 
                 if ("list".equals(line)) {
                     List<Integer> content = new ArrayList<>();
-                    for (int i = 0; i < 1000; i++)
+                    for (int i = 0; i < 10000; i++)
                         content.add(i);
                     sendAsComposite(ch, lastFuture, content, "echo");
                 } else if("login1".equals(line)) {

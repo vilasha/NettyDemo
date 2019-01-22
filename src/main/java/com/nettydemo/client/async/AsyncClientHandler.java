@@ -1,6 +1,6 @@
 package com.nettydemo.client.async;
 
-import com.nettydemo.common.Packer;
+import com.nettydemo.common.Codec;
 import com.nettydemo.common.entities.ResponseMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -46,7 +46,7 @@ public class AsyncClientHandler extends SimpleChannelInboundHandler<String> {
             } else {
                 multiplePackage[packageCounter] = msg;
                 readingMultiple = false;
-                Packer p = new Packer();
+                Codec p = new Codec();
                 ResponseMessage message = (ResponseMessage) p.unpack(multiplePackage);
                 log.info("Received a message: " + message.toString());
                 log.info("Content type: " + message.getMessageBodyType().getName()

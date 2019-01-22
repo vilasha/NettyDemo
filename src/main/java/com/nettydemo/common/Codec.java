@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
-public class Packer {
+public class Codec {
 
     private static int messageLen;
 
@@ -120,7 +120,7 @@ public class Packer {
     }
 
     public static void main(String[] args) {
-        Packer p = new Packer();
+        Codec p = new Codec();
         List<Integer> content = new ArrayList<>();
         for (int i = 0; i < 1000; i++)
             content.add(i);

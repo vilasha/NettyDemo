@@ -1,6 +1,6 @@
 package com.nettydemo.server.async;
 
-import com.nettydemo.common.Packer;
+import com.nettydemo.common.Codec;
 import com.nettydemo.common.entities.RequestMessage;
 import com.nettydemo.common.entities.ResponseMessage;
 import com.nettydemo.server.MessageProcessor;
@@ -70,7 +70,7 @@ public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
             } else {
                 multiplePackage[packageCounter] = request;
                 readingMultiple = false;
-                Packer p = new Packer();
+                Codec p = new Codec();
                 RequestMessage message = (RequestMessage) p.unpack(multiplePackage);
 
                 log.info("Received a message: " + message.toString());

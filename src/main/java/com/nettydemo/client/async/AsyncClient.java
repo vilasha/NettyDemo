@@ -1,6 +1,6 @@
 package com.nettydemo.client.async;
 
-import com.nettydemo.common.Packer;
+import com.nettydemo.common.Codec;
 import com.nettydemo.common.entities.LoginMessage;
 import com.nettydemo.common.entities.RequestMessage;
 import com.nettydemo.common.Utils;
@@ -75,7 +75,7 @@ public class AsyncClient {
     }
 
     private static void sendAsComposite(Channel ch, ChannelFuture lastFuture, Object content, String serviceId) throws InterruptedException {
-        Packer p = new Packer();
+        Codec p = new Codec();
         String[] packed = p.pack(content, content.getClass(), RequestMessage.class, serviceId);
         lastFuture = ch.writeAndFlush("compositeMessage=" + String.valueOf(packed.length) + "\r\n");
         if (lastFuture != null)

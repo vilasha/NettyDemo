@@ -1,4 +1,4 @@
-package com.nettydemo.client.async;
+package com.nettydemo.client.sync;
 
 import com.nettydemo.common.Codec;
 import com.nettydemo.common.entities.ResponseMessage;
@@ -23,12 +23,12 @@ import java.util.logging.SimpleFormatter;
  * compositeMessage command, it retrieves encoded object using Codec class
  */
 @ChannelHandler.Sharable
-public class AsyncClientHandler extends SimpleChannelInboundHandler<String> {
+public class SyncClientHandler extends SimpleChannelInboundHandler<String> {
 
     /**
      * Logger, that will contain all received decoded messages
      */
-    private static Logger log = Logger.getLogger(AsyncClientHandler.class.getName());
+    private static Logger log = Logger.getLogger(SyncClientHandler.class.getName());
 
     static {
         FileHandler logHandler;

@@ -1,4 +1,4 @@
-package com.nettydemo.server.async;
+package com.nettydemo.client.sync;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -14,21 +14,20 @@ import io.netty.handler.codec.string.StringEncoder;
  * (in our case with fixed frame length). After channel is open
  * and initialized, this handler is removed from pipeline by Netty
  * This class is not mandatory, as we can define unnamed initializer
- * at main server application, on bootstrap lambda
+ * at main client application, on bootstrap lambda (line 65)
  */
-public class AsyncServerInitializer extends ChannelInitializer<SocketChannel> {
-
+public class SyncClientInitializer extends ChannelInitializer<SocketChannel> {
     private static final StringDecoder DECODER = new StringDecoder();
     private static final StringEncoder ENCODER = new StringEncoder();
 
-    private static final AsyncServerHandler SERVER_HANDLER = new AsyncServerHandler();
-
+    private static final SyncClientHandler CLIENT_HANDLER = new SyncClientHandler();
     @Override
-    protected void initChannel(SocketChannel ch) {
+    protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()))
+        pipeline
+                .addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()))
                 .addLast(DECODER)
                 .addLast(ENCODER)
-                .addLast(SERVER_HANDLER);
+                .addLast(CLIENT_HANDLER);
     }
 }

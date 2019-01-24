@@ -1,16 +1,16 @@
-package com.nettydemo.client.async;
+package com.nettydemo.client.sync;
 
 import com.nettydemo.common.Codec;
+import com.nettydemo.common.Utils;
 import com.nettydemo.common.entities.LoginMessage;
 import com.nettydemo.common.entities.RequestMessage;
-import com.nettydemo.common.Utils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.channel.oio.OioEventLoopGroup;
+import io.netty.channel.socket.oio.OioSocketChannel;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -36,8 +36,12 @@ import java.util.List;
  *
  * To change reaction of the server on these commands or introduce other commands
  * please check class MessageProcessor
+ *
+ * Class uses deprecated syncronized connection Oio (please check results of
+ * Performance test to see why it is deprecated: the sending of objects is much slower)
  */
-public class AsyncClient {
+@SuppressWarnings("deprecation")
+public class SyncClient {
 
     /**
      * Host variable an IP of server remote host.
@@ -55,14 +59,14 @@ public class AsyncClient {
      * @throws Exception might be thrown by Netty TCP connection implementation
      */
     public static void main(String[] args) throws Exception {
-        EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup group = new OioEventLoopGroup();
 
         try {
             Bootstrap clientBootstrap = new Bootstrap();
             clientBootstrap.group(group)
-                    .channel(NioSocketChannel.class)
+                    .channel(OioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
-                    .handler(new AsyncClientInitializer());
+                    .handler(new SyncClientInitializer());
 
             Channel ch = clientBootstrap.connect(HOST, PORT).sync().channel();
 

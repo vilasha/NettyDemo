@@ -1,4 +1,4 @@
-package com.nettydemo.server.async;
+package com.nettydemo.server.sync;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -16,12 +16,12 @@ import io.netty.handler.codec.string.StringEncoder;
  * This class is not mandatory, as we can define unnamed initializer
  * at main server application, on bootstrap lambda
  */
-public class AsyncServerInitializer extends ChannelInitializer<SocketChannel> {
+public class SyncServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private static final StringDecoder DECODER = new StringDecoder();
     private static final StringEncoder ENCODER = new StringEncoder();
 
-    private static final AsyncServerHandler SERVER_HANDLER = new AsyncServerHandler();
+    private static final SyncServerHandler SERVER_HANDLER = new SyncServerHandler();
 
     @Override
     protected void initChannel(SocketChannel ch) {

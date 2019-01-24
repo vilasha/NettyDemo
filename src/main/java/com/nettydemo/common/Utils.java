@@ -7,6 +7,11 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 
+/**
+ * Utility singleton object for getting application
+ * properties (host, port, message length), generating
+ * message id-codes and returning current JVM date and time
+ */
 public class Utils {
     private static final Utils SINGLE_INSTANCE = new Utils();
     private Utils() {}

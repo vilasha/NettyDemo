@@ -8,6 +8,14 @@ import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
+/**
+ * This is a handler, that is added to inbound pipeline only at the
+ * beginning to initialize the channel with certain parameters
+ * (in our case with fixed frame length). After channel is open
+ * and initialized, this handler is removed from pipeline by Netty
+ * This class is not mandatory, as we can define unnamed initializer
+ * at main client application, on bootstrap lambda (line 65)
+ */
 public class AsyncClientInitializer extends ChannelInitializer<SocketChannel> {
     private static final StringDecoder DECODER = new StringDecoder();
     private static final StringEncoder ENCODER = new StringEncoder();

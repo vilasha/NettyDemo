@@ -1,16 +1,35 @@
-Jan 22, 2019 12:31:45 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: Client boot time = 6727ms
-Jan 22, 2019 12:31:46 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: IntList with 1 elements: 69ms
-Jan 22, 2019 12:31:46 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: IntList with 10 elements: 65ms
-Jan 22, 2019 12:31:46 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: IntList with 100 elements: 71ms
-Jan 22, 2019 12:31:46 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: IntList with 1000 elements: 446ms
-Jan 22, 2019 12:31:48 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: IntList with 10000 elements: 1574ms
-Jan 22, 2019 12:31:53 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: IntList with 100000 elements: 5344ms
-Jan 22, 2019 12:31:54 PM com.nettydemo.performance.AsyncConnectionPerformanceTest main
-INFO: Client shutdown time: 241ms
+Jan 24, 2019 11:22:36 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: ---------------------Asynchronous Netty Connection test---------------------
+Jan 24, 2019 11:22:45 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: Client boot time = 8143ms
+Jan 24, 2019 11:22:46 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: IntList with 1 elements: 103ms
+Jan 24, 2019 11:22:46 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: IntList with 10 elements: 32ms
+Jan 24, 2019 11:22:46 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: IntList with 100 elements: 66ms
+Jan 24, 2019 11:22:46 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: IntList with 1000 elements: 327ms
+Jan 24, 2019 11:22:48 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: IntList with 10000 elements: 1644ms
+Jan 24, 2019 11:22:54 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: IntList with 100000 elements: 5399ms
+Jan 24, 2019 11:22:54 AM com.nettydemo.performance.AsyncConnectionPerformanceTest main
+INFO: Client shutdown time: 230ms
+Jan 24, 2019 11:23:39 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+
+INFO: -----------------Synchronous (oio, deprecated) Netty Connection test-----------------
+Jan 24, 2019 11:23:47 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: Client boot time = 8168ms
+Jan 24, 2019 11:23:51 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: IntList with 1 elements: 1095ms
+Jan 24, 2019 11:23:53 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: IntList with 10 elements: 2036ms
+Jan 24, 2019 11:23:56 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: IntList with 100 elements: 3060ms
+Jan 24, 2019 11:24:11 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: IntList with 1000 elements: 15431ms
+Jan 24, 2019 11:26:28 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: IntList with 10000 elements: 137292ms
+Jan 24, 2019 11:26:29 AM com.nettydemo.performance.SyncConnectionPerformanceTest main
+INFO: Client shutdown time: 210ms

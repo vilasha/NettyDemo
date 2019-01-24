@@ -1,12 +1,12 @@
-package com.nettydemo.server.async;
+package com.nettydemo.server.sync;
 
 import com.nettydemo.common.Utils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.oio.OioEventLoopGroup;
+import io.netty.channel.socket.oio.OioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -15,20 +15,21 @@ import io.netty.handler.logging.LoggingHandler;
  * a port (this port is defined in config.properties file) and
  * awaits for clients to connect
  */
-public class AsyncServer {
+@SuppressWarnings("deprecation")
+public class SyncServer {
     private static final int PORT = Utils.getInstance().getPort();
 
     public static void main(String[] args) throws Exception {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new OioEventLoopGroup(1);
+        EventLoopGroup workGroup = new OioEventLoopGroup();
 
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workGroup)
-                    .channel(NioServerSocketChannel.class)
+                    .channel(OioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 100)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new AsyncServerInitializer());
+                    .childHandler(new SyncServerInitializer());
             Channel ch = serverBootstrap.bind(PORT).sync().channel();
             System.out.println("Waiting for clients");
             ch.closeFuture().sync();

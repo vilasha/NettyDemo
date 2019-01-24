@@ -7,23 +7,26 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Class tests performance of asynchronous Netty client-server connection
- * It launches server (from /test/resources/asyncServer.jar),
- * launches a client (from  /test/resources/asyncClient.jar),
+ * Class tests performance of synchronous (oio) Netty client-server connection
+ * It launches server (from /test/resources/syncServer.jar),
+ * launches a client (from  /test/resources/syncClient.jar),
  * and then creates array lists with 1, 10, 100, 1000, etc elements
  * and sends it to server and receives it back. Duration of each
  * data exchange is written to a performanceTest.log file
  *
  * To have up-to-date evaluation if you changed async implementation,
- * please update files /test/resources/asyncServer.jar and asyncClient.jar
- * from /out/artifacts/asyncServer and /out/artifacts/asyncClient
+ * please update files /test/resources/syncServer.jar and syncClient.jar
+ * from /out/artifacts/syncServer and /out/artifacts/syncClient
  * (you need to rename .jar files as well)
+ *
+ * On my computer it never went higher that an array with 10000 elements
+ * as force stop check stops the process due to the process is being too long
  */
-public class AsyncConnectionPerformanceTest {
+public class SyncConnectionPerformanceTest {
 
-    private AsyncConnectionPerformanceTest() {}
+    private SyncConnectionPerformanceTest() {}
 
-    private static Logger log = Logger.getLogger(AsyncConnectionPerformanceTest.class.getName());
+    private static Logger log = Logger.getLogger(SyncConnectionPerformanceTest.class.getName());
 
     static {
         FileHandler logHandler;
@@ -38,17 +41,17 @@ public class AsyncConnectionPerformanceTest {
 
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
 
-        log.info("\n---------------------Asynchronous Netty Connection test---------------------");
+        log.info("\n-----------------Synchronous (oio, deprecated) Netty Connection test-----------------");
 
-        String absolutePath = new File(AsyncConnectionPerformanceTest.class.getProtectionDomain().getCodeSource().getLocation()
+        String absolutePath = new File(SyncConnectionPerformanceTest.class.getProtectionDomain().getCodeSource().getLocation()
                 .toURI()).getPath();
         System.out.println(absolutePath);
 
-        ProcessBuilder pb1 = new ProcessBuilder("java", "-jar", absolutePath + "\\asyncServer.jar");
+        ProcessBuilder pb1 = new ProcessBuilder("java", "-jar", absolutePath + "\\syncServer.jar");
         Process process1 = pb1.start();
         attachErrorStreamReader(process1);
 
-        ProcessBuilder pb2 = new ProcessBuilder("java", "-jar", absolutePath + "\\asyncClient.jar");
+        ProcessBuilder pb2 = new ProcessBuilder("java", "-jar", absolutePath + "\\syncClient.jar");
         long startTime, endTime;
         startTime = System.currentTimeMillis();
         Process process2 = pb2.start();

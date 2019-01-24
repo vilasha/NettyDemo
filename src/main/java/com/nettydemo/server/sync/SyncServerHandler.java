@@ -1,4 +1,4 @@
-package com.nettydemo.server.async;
+package com.nettydemo.server.sync;
 
 import com.nettydemo.common.Codec;
 import com.nettydemo.common.entities.RequestMessage;
@@ -28,7 +28,7 @@ import java.util.logging.*;
  * and when client disconnects, log file is closed
  */
 @ChannelHandler.Sharable
-public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
+public class SyncServerHandler extends SimpleChannelInboundHandler<String> {
 
     /**
      * Logger, that will contain all received decoded messages
@@ -58,7 +58,7 @@ public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelActive();
-        log = Logger.getLogger(AsyncServerHandler.class.getName());
+        log = Logger.getLogger(SyncServerHandler.class.getName());
         FileHandler logHandler;
         try {
             logHandler = new FileHandler("server.log", true);

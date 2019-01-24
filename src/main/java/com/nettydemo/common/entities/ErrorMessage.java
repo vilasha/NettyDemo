@@ -2,6 +2,10 @@ package com.nettydemo.common.entities;
 
 import java.io.Serializable;
 
+/**
+ * Entity object for an Error messages
+ * Contains error code and description
+ */
 public class ErrorMessage implements Serializable {
     private String errorCodeDetail;
     private String errorReason;

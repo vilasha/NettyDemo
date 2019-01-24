@@ -8,8 +8,21 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
+/**
+ * Class encodes or decodes objects
+ * First it wraps it with a header (RequestMessage or ResponseMessage)
+ * then encodes with Base64 Java built in encoder, and after that
+ * split encoded string into parts of fixed length. Length of the parts
+ * is defined in config.properties file
+ *
+ * For decoding it does these steps backwards: concatenates parts,
+ * decodes with Base64, returns RequestMessage or ResponseMessage
+ */
 public class Codec {
 
+    /**
+     * Length of message parts defined in config.properties file
+     */
     private static int messageLen;
 
     static {
@@ -23,6 +36,15 @@ public class Codec {
         }
     }
 
+    /**
+     * Wraps object with header, encodes and splits into parts
+     * @param content object to send
+     * @param contentType class of the object above. This field is optional, as we can
+     *                    detect content's class by .getClass or instanceOf methods
+     * @param messageType what header to wrap with: RequestMessage or ResponseMessage
+     * @param serviceId command what to do with the object on server
+     * @return encoded object split into parts
+     */
     public String[] pack(Object content, Class contentType,
                                 Class messageType, String serviceId) {
         // Create header for all the messages
@@ -63,6 +85,12 @@ public class Codec {
         return null;
     }
 
+    /**
+     * Just encodes an object with Base64 and splits it into parts
+     * of fixed length
+     * @param message object to encode
+     * @return encoded object split into parts
+     */
     public String[] packWithoutWrapping(Object message) {
         String encodedMessage = convertToString(message);
         String[] result = new String[(int) Math.ceil((double) Objects.requireNonNull(encodedMessage).length() / messageLen)];
@@ -72,6 +100,12 @@ public class Codec {
         return result;
     }
 
+    /**
+     * Decodes message from parts: concatenates parts,
+     * decodes with Base64, returns RequestMessage or ResponseMessage
+     * @param messages parts of the message received
+     * @return decoded object
+     */
     public Object unpack(String[] messages) {
         StringBuilder sb = new StringBuilder();
         for (String item : messages)
@@ -79,6 +113,11 @@ public class Codec {
         return convertFromString(sb.toString());
     }
 
+    /**
+     * Encodes an object with Base64 encoding
+     * @param content object to encode
+     * @return encoded string
+     */
     private String convertToString(Object content) {
         ByteArrayOutputStream byteStream = null;
         try {
@@ -100,6 +139,11 @@ public class Codec {
         return null;
     }
 
+    /**
+     * Decodes object with Base64
+     * @param content encoded string
+     * @return decoded object
+     */
     private Object convertFromString(String content) {
         Object result = null;
         byte[] decodedBytes = Base64.getUrlDecoder().decode(content);
@@ -119,6 +163,11 @@ public class Codec {
         return result;
     }
 
+    /**
+     * Method for testing class's functionality: creates an array list,
+     * encodes and decodes it
+     * @param args ignored
+     */
     public static void main(String[] args) {
         Codec p = new Codec();
         List<Integer> content = new ArrayList<>();

@@ -1,0 +1,30 @@
+{
+"message-number":1,
+"total-messages":1,
+"message":[
+  {
+    "messageGuid": "00000001",
+    "senderIp": "168.5.0.2",
+    "serviceId": "login",
+    "requestTime": 201901011250,
+    "login": "myloginid",
+    "password": "12345"
+  },
+  {
+    "messageGuid": "00000002",
+    "senderIp": "168.5.0.2",
+    "serviceId": "login",
+    "requestTime": 201901011251,
+    "login": "myloginid2",
+    "password": "23456"
+  },
+  {
+    "messageGuid": "00000003",
+    "senderIp": "168.5.0.2",
+    "serviceId": "error",
+    "requestTime": 201901011252,
+    "error-code": "ERR10023",
+    "error-description": "Error reason text (for error messages only)"
+  }
+]
+}

@@ -1,9 +1,9 @@
-package com.nettydemo.common.fixed_length;
+package com.nettydemo.common.milestone2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.nettydemo.common.Utils;
-import com.nettydemo.common.fixed_length.entities.*;
+import com.nettydemo.common.milestone2.entities.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,13 +11,45 @@ import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class outputs array lists of instances entities.Message (and its descenders)
+ * into xml, json, csv or txt format.
+ * Supports pagination: number of messages in one package is defined by
+ * constant LINES_PER_MESSAGE or can be passed as a second parameter
+ * to methods generate[Xml/Json/Csv/FixedLength]
+ */
 public class MessageGenerator {
+    /**
+     * Number of messages in one MessageStructure, and therefore in one file
+     */
     private static final int LINES_PER_MESSAGE = 5;
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an xml file
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (xml)
+     * @throws JAXBException is thrown if Java XML parser can't map MessageStructure
+     *                       to an xml file
+     */
     public void generateXml(ArrayList<Message> messages, String filePrefix) throws JAXBException {
         generateXml(messages, filePrefix, LINES_PER_MESSAGE);
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an xml file
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (xml)
+     * @param linesPerMessage messages in one MessageStructure and therefore
+     *                        one xml file
+     * @throws JAXBException is thrown if Java XML parser can't map MessageStructure
+     *                       to an xml file
+     */
     public void generateXml(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws JAXBException {
         ArrayList<MessageStructure> packedMessages = packMessages(messages, linesPerMessage);
         int fileCounter = 0;
@@ -31,10 +63,32 @@ public class MessageGenerator {
         }
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an json file
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (json)
+     * @throws IOException if Jackson parser can't map MessageStructure
+     *                     to a json file
+     */
     public void generateJson(ArrayList<Message> messages, String filePrefix) throws IOException {
         generateJson(messages, filePrefix, LINES_PER_MESSAGE);
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an json file
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (json)
+     * @param linesPerMessage messages in one MessageStructure and therefore
+     *                        one json file
+     * @throws IOException if Jackson parser can't map MessageStructure
+     *                     to a json file
+     */
     public void generateJson(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -48,10 +102,32 @@ public class MessageGenerator {
         }
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an csv file
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (csv)
+     * @throws FileNotFoundException if something happened during PrintWriter
+     *                               outputs results to a file
+     */
     public void generateCsv(ArrayList<Message> messages, String filePrefix) throws FileNotFoundException {
         generateCsv(messages, filePrefix, LINES_PER_MESSAGE);
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an csv file
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (csv)
+     * @param linesPerMessage messages in one MessageStructure and therefore
+     *                        one csv file
+     * @throws FileNotFoundException if something happened during PrintWriter
+     *                               outputs results to a file
+     */
     public void generateCsv(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws FileNotFoundException {
         ArrayList<MessageStructure> packedMessages = packMessages(messages, linesPerMessage);
         int fileCounter = 0;
@@ -88,10 +164,32 @@ public class MessageGenerator {
         }
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an txt file with fields of fixed length
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (txt)
+     * @throws FileNotFoundException if something happened during PrintWriter
+     *                               outputs results to a file
+     */
     public void generateFixedLength(ArrayList<Message> messages, String filePrefix) throws FileNotFoundException {
         generateFixedLength(messages, filePrefix, LINES_PER_MESSAGE);
     }
 
+    /**
+     * Converts ArrayList of messages into MessageStructure (with pagination)
+     * and outputs it into an txt file with fields of fixed length
+     * @param messages inbound messages
+     * @param filePrefix relative path and beginning of the file name,
+     *                   will be appended with a counter (for ex., 001) and
+     *                   file extension (txt)
+     * @param linesPerMessage messages in one MessageStructure and therefore
+     *                        one txt file
+     * @throws FileNotFoundException if something happened during PrintWriter
+     *                               outputs results to a file
+     */
     public void generateFixedLength(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws FileNotFoundException {
         ArrayList<MessageStructure> packedMessages = packMessages(messages, linesPerMessage);
         int fileCounter = 0;
@@ -142,6 +240,15 @@ public class MessageGenerator {
         }
     }
 
+    /**
+     * Method converts array list of Message instances into an array list of
+     * MessageStructure instances with pagination (certain number of Message-s
+     * in one MessageStructure)
+     * @param messages inbound messages
+     * @param linesPerMessage messages in one MessageStructure and therefore
+     *                        one output file
+     * @return array list of MessageStructure instances
+     */
     private ArrayList<MessageStructure> packMessages(ArrayList<Message> messages, int linesPerMessage) {
         ArrayList<MessageStructure> result = new ArrayList<>();
         for (int i = 0; i < messages.size(); i += linesPerMessage) {
@@ -258,6 +365,13 @@ public class MessageGenerator {
         return result;
     }
 
+    /**
+     * Method for testing and demo of class's functionality
+     * @param args ignored
+     * @throws JAXBException is thrown if error occurs during xml encoding
+     * @throws IOException is thrown if error occurs during json, csv or fixed
+     *                     length encoding
+     */
     public static void main(String[] args) throws JAXBException, IOException {
         MessageGenerator generator = new MessageGenerator();
         ArrayList<Message> output = new ArrayList<>();

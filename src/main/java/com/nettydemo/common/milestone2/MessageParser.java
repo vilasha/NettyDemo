@@ -1,7 +1,7 @@
-package com.nettydemo.common.fixed_length;
+package com.nettydemo.common.milestone2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nettydemo.common.fixed_length.entities.*;
+import com.nettydemo.common.milestone2.entities.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,7 +12,25 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Class decodes data from an xml, json, csv or fixed-length txt file
+ * into an array list of Message instances. Supports pagination,
+ * i.e. data from several files will be combined into one ArrayList
+ */
 public class MessageParser {
+
+    /**
+     * Main method that reads data from files and depending on file's
+     * extension calls parsing from methods parseXml, parseJson, parseCsv
+     * or parseFixedLength.
+     * Then it converts ArrayList of MessageStructure into an ArrayList
+     * of Message instances
+     * @param fileNames inbound files (xml, json, csv or txt are supported)
+     * @return ArrayList of Message instances
+     * @throws IOException is thrown if error occurs during json, csv or
+     *                     fixed-length parsing
+     * @throws JAXBException is thrown if an error occurs during xml parsing
+     */
     public ArrayList<Message> parseFiles(String[] fileNames) throws IOException, JAXBException {
         ArrayList<MessageStructure> parsedFiles = new ArrayList<>();
         for (String fileName : fileNames) {
@@ -93,17 +111,40 @@ public class MessageParser {
         return result;
     }
 
+    /**
+     * Maps data from one xml file into one MessageStructure instance
+     * @param mapData data from xml file
+     * @return MessageStructure instance with certain messages inside
+     *         (number of messages is defined in MessageGenerator.LINES_PER_MESSAGE
+     *         variable)
+     * @throws JAXBException is thrown if an error occurs during xml parsing
+     */
     private MessageStructure parseXml(byte[] mapData) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(MessageStructure.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         return (MessageStructure)jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(mapData));
     }
 
+    /**
+     * Maps data from one json file into one MessageStructure instance
+     * @param mapData data from json file
+     * @return MessageStructure instance with certain messages inside
+     *         (number of messages is defined in MessageGenerator.LINES_PER_MESSAGE
+     *         variable)
+     * @throws IOException is thrown if an error occurs during json parsing
+     */
     private MessageStructure parseJson(byte[] mapData) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(mapData, MessageStructure.class);
     }
 
+    /**
+     * Maps data from one csv file into one MessageStructure instance
+     * @param mapData data from csv file
+     * @return MessageStructure instance with certain messages inside
+     *         (number of messages is defined in MessageGenerator.LINES_PER_MESSAGE
+     *         variable)
+     */
     private MessageStructure parseCsv(byte[] mapData) {
         String[] lines = (new String(mapData)).split("\n");
         MessageStructure result = new MessageStructure();
@@ -145,6 +186,13 @@ public class MessageParser {
         return result;
     }
 
+    /**
+     * Maps data from one fixed length txt file into one MessageStructure instance
+     * @param mapData data from txt file
+     * @return MessageStructure instance with certain messages inside
+     *         (number of messages is defined in MessageGenerator.LINES_PER_MESSAGE
+     *         variable)
+     */
     private MessageStructure parseFixedLength(byte[] mapData) {
         String[] lines = (new String(mapData)).split("\n");
         MessageStructure result = new MessageStructure();
@@ -233,6 +281,13 @@ public class MessageParser {
         return result;
     }
 
+    /**
+     * Finds a field with a certain name from MessageStructure
+     * @param message MessageStructure instance
+     * @param name what name to search
+     * @return this field with all its parameters (data-type, default
+     *         value, is-mandatory, etc)
+     */
     private MessageField findByName(MessageStructure message, String name) {
         for (MessageField field : message.getFields())
             if (name.equals(field.getName()))
@@ -240,6 +295,13 @@ public class MessageParser {
         return null;
     }
 
+    /**
+     * Method for testing and demo of class's functionality
+     * @param args ignored
+     * @throws IOException is thrown if error occurs during json, csv or fixed
+     *                     length parsing
+     * @throws JAXBException is thrown if error occurs during xml parsing
+     */
     public static void main(String[] args) throws IOException, JAXBException {
         MessageParser parser = new MessageParser();
         System.out.println("-------------------------------------------");

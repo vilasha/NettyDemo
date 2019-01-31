@@ -1,4 +1,4 @@
-package com.nettydemo.common.fixed_length.entities;
+package com.nettydemo.common.milestone2.entities;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 

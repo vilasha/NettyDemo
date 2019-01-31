@@ -1,5 +1,7 @@
 package com.nettydemo.common.fixed_length;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.nettydemo.common.Utils;
 import com.nettydemo.common.fixed_length.entities.*;
 
@@ -7,6 +9,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MessageGenerator {
@@ -29,12 +33,21 @@ public class MessageGenerator {
         }
     }
 
-    public void generateJson(ArrayList<Message> messages, String filePrefix) {
+    public void generateJson(ArrayList<Message> messages, String filePrefix) throws IOException {
         generateJson(messages, filePrefix, LINES_PER_MESSAGE);
     }
 
-    private void generateJson(ArrayList<Message> messages, String filePrefix, int linesPerMessage) {
-
+    public void generateJson(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        ArrayList<MessageStructure> packedMessages = packMessages(messages, linesPerMessage);
+        int fileCounter = 0;
+        for (MessageStructure message : packedMessages) {
+            fileCounter++;
+            objectMapper.writeValue(
+                    new FileOutputStream(filePrefix + String.format("%03d", fileCounter) + ".json"),
+                    message);
+        }
     }
 
     private ArrayList<MessageStructure> packMessages(ArrayList<Message> messages, int linesPerMessage) {
@@ -153,7 +166,7 @@ public class MessageGenerator {
         return result;
     }
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, IOException {
         MessageGenerator generator = new MessageGenerator();
         ArrayList<Message> output = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -173,5 +186,6 @@ public class MessageGenerator {
             output.add(item1);
         }
         generator.generateXml(output, "test");
+        generator.generateJson(output, "test");
     }
 }

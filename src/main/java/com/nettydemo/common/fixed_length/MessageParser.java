@@ -96,14 +96,12 @@ public class MessageParser {
     private MessageStructure parseXml(byte[] mapData) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(MessageStructure.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        MessageStructure result = (MessageStructure)jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(mapData));
-        return result;
+        return (MessageStructure)jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(mapData));
     }
 
     private MessageStructure parseJson(byte[] mapData) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        MessageStructure result = objectMapper.readValue(mapData, MessageStructure.class);
-        return result;
+        return objectMapper.readValue(mapData, MessageStructure.class);
     }
 
     private MessageStructure parseCsv(byte[] mapData) {
@@ -121,17 +119,11 @@ public class MessageParser {
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, JAXBException {
         MessageParser parser = new MessageParser();
-        String[] files = {"test001.xml", "test002.xml", "test003.xml", "test004.xml"};
-        try {
-            ArrayList<Message> res1 = parser.parseFiles(files);
-            for (Message m : res1)
-                System.out.println(m.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+        String[] files = {"test001.json", "test002.json", "test003.json", "test004.json"};
+        ArrayList<Message> res1 = parser.parseFiles(files);
+        for (Message m : res1)
+            System.out.println(m.toString());
     }
 }

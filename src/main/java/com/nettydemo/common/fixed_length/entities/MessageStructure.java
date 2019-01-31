@@ -1,5 +1,7 @@
 package com.nettydemo.common.fixed_length.entities;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ public class MessageStructure {
     }
 
     @XmlElement(name="message-number")
+    @JsonSetter("message-number")
     public void setMessageNumber(int messageNumber) {
         this.messageNumber = messageNumber;
     }
@@ -29,6 +32,7 @@ public class MessageStructure {
     }
 
     @XmlElement(name="total-messages")
+    @JsonSetter("total-messages")
     public void setTotalMessages(int totalMessages) {
         this.totalMessages = totalMessages;
     }
@@ -38,6 +42,7 @@ public class MessageStructure {
     }
 
     @XmlElement(name="field")
+    @JsonSetter("field")
     public void setFields(ArrayList<MessageField> fields) {
         this.fields = fields;
     }

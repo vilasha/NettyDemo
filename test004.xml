@@ -7,7 +7,7 @@
         <is-mandatory>true</is-mandatory>
         <name>messageGuid</name>
         <values>
-            <value>V00000000016</value>
+            <value>L00000000016</value>
         </values>
     </field>
     <field>
@@ -37,7 +37,7 @@
         <is-mandatory>true</is-mandatory>
         <name>requestTime</name>
         <values>
-            <value>201901311219535</value>
+            <value>201901311245935</value>
         </values>
     </field>
     <field>

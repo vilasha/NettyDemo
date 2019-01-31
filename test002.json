@@ -1,0 +1,62 @@
+{
+  "id" : 5,
+  "message-number" : 5,
+  "total-messages" : 4,
+  "field" : [ {
+    "name" : "messageGuid",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "00000000",
+    "value" : [ "L00000000006", "L00000000007", "L00000000008", "L00000000009", "L00000000010" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "senderIp",
+    "field-length" : 15,
+    "data-type" : "string",
+    "default-value" : "127.0.0.1",
+    "value" : [ "localhost", "localhost", "localhost", "localhost", "localhost" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "serviceId",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "echo",
+    "value" : [ "error", "login", "error", "login", "error" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "requestTime",
+    "field-length" : 15,
+    "data-type" : "long",
+    "default-value" : "0",
+    "value" : [ "201901311245902", "201901311245902", "201901311245902", "201901311245902", "201901311245909" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "login",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "", "login03", "", "login04", "" ],
+    "is-mandatory" : false
+  }, {
+    "name" : "password",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "", "qwerty", "", "qwerty", "" ],
+    "is-mandatory" : false
+  }, {
+    "name" : "error-code",
+    "field-length" : 8,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "ERR1003", "", "ERR1004", "", "ERR1005" ],
+    "is-mandatory" : false
+  }, {
+    "name" : "error-description",
+    "field-length" : 200,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "Error reason text (for error messages only)", "", "Error reason text (for error messages only)", "", "Error reason text (for error messages only)" ],
+    "is-mandatory" : false
+  } ]
+}

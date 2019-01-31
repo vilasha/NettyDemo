@@ -1,5 +1,7 @@
 package com.nettydemo.common.fixed_length.entities;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class MessageField {
     }
 
     @XmlElement(name="name")
+    @JsonSetter("name")
     public void setName(String name) {
         this.name = name;
     }
@@ -26,6 +29,7 @@ public class MessageField {
     }
 
     @XmlElement(name="field-length")
+    @JsonSetter("field-length")
     public void setFieldLength(int fieldLength) {
         this.fieldLength = fieldLength;
     }
@@ -35,6 +39,7 @@ public class MessageField {
     }
 
     @XmlElement(name="data-type")
+    @JsonSetter("data-type")
     public void setDataType(String dataType) {
         this.dataType = dataType;
     }
@@ -44,6 +49,7 @@ public class MessageField {
     }
 
     @XmlElement(name="default-value")
+    @JsonSetter("default-value")
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
@@ -53,6 +59,7 @@ public class MessageField {
     }
 
     @XmlElement(name="is-mandatory")
+    @JsonSetter("is-mandatory")
     public void setMandatory(boolean mandatory) {
         isMandatory = mandatory;
     }
@@ -61,6 +68,7 @@ public class MessageField {
 
     @XmlElementWrapper(name="values")
     @XmlElement(name="value")
+    @JsonSetter("value")
     public void setValues(ArrayList<String> values) {
         this.values = values;
     }

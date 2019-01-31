@@ -1,0 +1,62 @@
+{
+  "id" : 15,
+  "message-number" : 15,
+  "total-messages" : 4,
+  "field" : [ {
+    "name" : "messageGuid",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "00000000",
+    "value" : [ "L00000000016" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "senderIp",
+    "field-length" : 15,
+    "data-type" : "string",
+    "default-value" : "127.0.0.1",
+    "value" : [ "localhost" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "serviceId",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "echo",
+    "value" : [ "error" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "requestTime",
+    "field-length" : 15,
+    "data-type" : "long",
+    "default-value" : "0",
+    "value" : [ "201901311245935" ],
+    "is-mandatory" : true
+  }, {
+    "name" : "login",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "" ],
+    "is-mandatory" : false
+  }, {
+    "name" : "password",
+    "field-length" : 20,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "" ],
+    "is-mandatory" : false
+  }, {
+    "name" : "error-code",
+    "field-length" : 8,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "ERR1008" ],
+    "is-mandatory" : false
+  }, {
+    "name" : "error-description",
+    "field-length" : 200,
+    "data-type" : "string",
+    "default-value" : "",
+    "value" : [ "Error reason text (for error messages only)" ],
+    "is-mandatory" : false
+  } ]
+}

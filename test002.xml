@@ -7,11 +7,11 @@
         <is-mandatory>true</is-mandatory>
         <name>messageGuid</name>
         <values>
-            <value>L00000000006</value>
-            <value>L00000000007</value>
-            <value>L00000000008</value>
-            <value>L00000000009</value>
-            <value>L00000000010</value>
+            <value>Y00000000006</value>
+            <value>Y00000000007</value>
+            <value>Y00000000008</value>
+            <value>Y00000000009</value>
+            <value>Y00000000010</value>
         </values>
     </field>
     <field>
@@ -49,11 +49,11 @@
         <is-mandatory>true</is-mandatory>
         <name>requestTime</name>
         <values>
-            <value>201901311245902</value>
-            <value>201901311245902</value>
-            <value>201901311245902</value>
-            <value>201901311245902</value>
-            <value>201901311245909</value>
+            <value>201901311750432</value>
+            <value>201901311750432</value>
+            <value>201901311750432</value>
+            <value>201901311750432</value>
+            <value>201901311750432</value>
         </values>
     </field>
     <field>

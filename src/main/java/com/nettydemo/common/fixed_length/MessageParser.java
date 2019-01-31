@@ -146,7 +146,91 @@ public class MessageParser {
     }
 
     private MessageStructure parseFixedLength(byte[] mapData) {
-        return null;
+        String[] lines = (new String(mapData)).split("\n");
+        MessageStructure result = new MessageStructure();
+        String[] items = lines[0].split("(?<=\\G.{15})");
+        result.setId(Integer.parseInt(items[0].trim()));
+        result.setMessageNumber(Integer.parseInt(items[1].trim()));
+        result.setTotalMessages(Integer.parseInt(items[2].trim()));
+        ArrayList<MessageField> fields = new ArrayList<>();
+        result.setFields(fields);
+        for (int i = 1; i < lines.length; i++) {
+            String s = lines[i].trim();
+            if (s.startsWith("name")) {
+                s = "name";
+                items = lines[i].substring(20).split("(?<=\\G.{20})");
+            }
+            else if (s.startsWith("data-type")) {
+                s = "data-type";
+                items = lines[i].substring(20).split("(?<=\\G.{15})");
+            }
+            else if (s.startsWith("default-value")) {
+                s = "default-value";
+                items = lines[i].substring(20).split("(?<=\\G.{200})");
+            }
+            else if (s.startsWith("is-mandatory")) {
+                s = "is-mandatory";
+                items = lines[i].substring(20).split("(?<=\\G.{5})");
+            }
+            else if (s.startsWith("value")) {
+                s = "value";
+                lines[i] = lines[i].substring(20);
+                items = new String[fields.size()];
+                for (int j = 0; j < items.length; j++) {
+                    int fieldLength = 0;
+                    switch (fields.get(j).getName()) {
+                        case "name":
+                        case "messageGuid":
+                        case "serviceId":
+                        case "login":
+                        case "password":
+                            fieldLength = 20;
+                            break;
+                        case "senderIp":
+                        case "requestTime":
+                            fieldLength = 15;
+                            break;
+                        case "error-code":
+                            fieldLength = 8;
+                            break;
+                        case "error-description":
+                            fieldLength = 200;
+                            break;
+                    }
+                    items[j] = lines[i].substring(0, fieldLength);
+                    lines[i] = lines[i].substring(fieldLength);
+                }
+            }
+            for (int j = 0; j < items.length; j++)
+                items[j] = items[j].trim();
+            switch(s) {
+                case "name":
+                    for (String item : items) {
+                        MessageField f = new MessageField();
+                        f.setName(item);
+                        f.setValues(new ArrayList<>());
+                        fields.add(f);
+                    }
+                    break;
+                case "data-type":
+                    for (int j = 0; j < items.length; j++)
+                        fields.get(j).setDataType(items[j]);
+                    break;
+                case "default-value":
+                    for (int j = 0; j < items.length; j++)
+                        fields.get(j).setDefaultValue(items[j]);
+                    break;
+                case "is-mandatory":
+                    for (int j = 0; j < items.length; j++)
+                        fields.get(j).setMandatory(Boolean.parseBoolean(items[j]));
+                    break;
+                case "value":
+                    for (int j = 0; j < items.length; j++)
+                        fields.get(j).getValues().add(items[j]);
+                    break;
+            }
+        }
+        return result;
     }
 
     private MessageField findByName(MessageStructure message, String name) {
@@ -158,8 +242,32 @@ public class MessageParser {
 
     public static void main(String[] args) throws IOException, JAXBException {
         MessageParser parser = new MessageParser();
-        String[] files = {"test001.csv", "test002.csv", "test003.csv", "test004.csv"};
+        System.out.println("-------------------------------------------");
+        System.out.println("----------------XML parsing----------------");
+        System.out.println("-------------------------------------------");
+        String[] files = {"test001.xml", "test002.xml", "test003.xml", "test004.xml"};
         ArrayList<Message> res1 = parser.parseFiles(files);
+        for (Message m : res1)
+            System.out.println(m.toString());
+        System.out.println("-------------------------------------------");
+        System.out.println("----------------JSON parsing---------------");
+        System.out.println("-------------------------------------------");
+        String[] files1 = {"test001.json", "test002.json", "test003.json", "test004.json"};
+        res1 = parser.parseFiles(files1);
+        for (Message m : res1)
+            System.out.println(m.toString());
+        System.out.println("-------------------------------------------");
+        System.out.println("----------------CSV parsing----------------");
+        System.out.println("-------------------------------------------");
+        String[] files2 = {"test001.csv", "test002.csv", "test003.csv", "test004.csv"};
+        res1 = parser.parseFiles(files2);
+        for (Message m : res1)
+            System.out.println(m.toString());
+        System.out.println("-------------------------------------------");
+        System.out.println("----------Fixed length parsing-------------");
+        System.out.println("-------------------------------------------");
+        String[] files3 = {"test001.txt", "test002.txt", "test003.txt", "test004.txt"};
+        res1 = parser.parseFiles(files3);
         for (Message m : res1)
             System.out.println(m.toString());
     }

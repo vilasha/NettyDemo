@@ -7,7 +7,7 @@
     "field-length" : 20,
     "data-type" : "string",
     "default-value" : "00000000",
-    "value" : [ "L00000000016" ],
+    "value" : [ "Y00000000016" ],
     "is-mandatory" : true
   }, {
     "name" : "senderIp",
@@ -28,7 +28,7 @@
     "field-length" : 15,
     "data-type" : "long",
     "default-value" : "0",
-    "value" : [ "201901311245935" ],
+    "value" : [ "201901311750456" ],
     "is-mandatory" : true
   }, {
     "name" : "login",

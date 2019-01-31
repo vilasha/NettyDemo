@@ -1,8 +1,0 @@
-1,1
-name,messageGuid,senderIp,serviceId,requestTime,login,password,error-code,error-description
-data-type,string,string,string,long,string,string
-default-value,00000000,127.0.0.1,echo,0,,
-is-mandatory,true,true,true,false,true,true
-value,00000001,168.5.0.2,login,201901011250,myloginid,12345,,
-value,00000002,168.5.0.2,login,201901011251,myloginid2,23456,,
-value,00000003,168.5.0.2,login,201901011252,,,ERR10023,Error reason text (for error messages only)

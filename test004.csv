@@ -3,4 +3,4 @@ name,messageGuid,senderIp,serviceId,requestTime,login,password,error-code,error-
 data-type,string,string,string,long,string,string,string,string
 default-value,00000000,127.0.0.1,echo,0,,,,
 is-mandatory,true,true,true,true,false,false,false,false
-value,W00000000016,localhost,error,201901311331823,,,ERR1008,Error reason text (for error messages only)
+value,Y00000000016,localhost,error,201901311750456,,,ERR1008,Error reason text (for error messages only)

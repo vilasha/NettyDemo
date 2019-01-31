@@ -88,6 +88,60 @@ public class MessageGenerator {
         }
     }
 
+    public void generateFixedLength(ArrayList<Message> messages, String filePrefix) throws FileNotFoundException {
+        generateFixedLength(messages, filePrefix, LINES_PER_MESSAGE);
+    }
+
+    public void generateFixedLength(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws FileNotFoundException {
+        ArrayList<MessageStructure> packedMessages = packMessages(messages, linesPerMessage);
+        int fileCounter = 0;
+        for (MessageStructure message : packedMessages) {
+            fileCounter++;
+            linesPerMessage = message.getFields().get(0).getValues().size();
+            StringBuilder header = new StringBuilder();
+            StringBuilder name = new StringBuilder(String.format("%" + 20 + "s", "name"));
+            StringBuilder dataType = new StringBuilder(String.format("%" + 20 + "s", "data-type"));
+            StringBuilder defaultValue = new StringBuilder(String.format("%" + 20 + "s", "default-value"));
+            StringBuilder isMandatory = new StringBuilder(String.format("%" + 20 + "s", "is-mandatory"));
+            StringBuilder[] values = new StringBuilder[linesPerMessage];
+            for (int i = 0; i < linesPerMessage; i++)
+                values[i] = new StringBuilder(String.format("%" + 20 + "s", "value"));
+            header.append(String.format("%" + 15 + "s", message.getId()))
+                    .append(String.format("%" + 15 + "s", message.getMessageNumber()))
+                    .append(String.format("%" + 15 + "s", message.getTotalMessages()));
+            for (MessageField field : message.getFields()) {
+                name.append(String.format("%" + 20 + "s", field.getName()));
+                dataType.append(String.format("%" + 15 + "s", field.getDataType()));
+                defaultValue.append(String.format("%" + 200 + "s", field.getDefaultValue()));
+                isMandatory.append(String.format("%" + 5 + "s", field.isMandatory() ? "true" : "false"));
+                for (int i = 0; i < linesPerMessage; i++) {
+                    String value = field.getValues().get(i);
+                    if ("long".equals(field.getDataType()))
+                        value = String.format("%015d", Long.parseLong(value));
+                    else if ("messageGuid".equals(field.getName()) || "serviceId".equals(field.getName())
+                            || "login".equals(field.getName()) || "password".equals(field.getName()))
+                        value = String.format("%" + 20 + "s", value);
+                    else if ("senderIp".equals(field.getName()))
+                        value = String.format("%" + 15 + "s", value);
+                    else if ("error-code".equals(field.getName()))
+                        value = String.format("%" + 8 + "s", value);
+                    else if ("error-description".equals(field.getName()))
+                        value = String.format("%" + 200 + "s", value);
+                    values[i].append(value);
+                }
+            }
+            PrintWriter pw = new PrintWriter(new File(filePrefix + String.format("%03d", fileCounter) + ".txt"));
+            pw.write(header.toString() + "\n");
+            pw.write(name.toString() + "\n");
+            pw.write(dataType.toString() + "\n");
+            pw.write(defaultValue.toString() + "\n");
+            pw.write(isMandatory.toString() + "\n");
+            for (int i = 0; i < linesPerMessage; i++)
+                pw.write(values[i].toString() + "\n");
+            pw.close();
+        }
+    }
+
     private ArrayList<MessageStructure> packMessages(ArrayList<Message> messages, int linesPerMessage) {
         ArrayList<MessageStructure> result = new ArrayList<>();
         for (int i = 0; i < messages.size(); i += linesPerMessage) {
@@ -223,6 +277,9 @@ public class MessageGenerator {
             item1.setErrorDescription("Error reason text (for error messages only)");
             output.add(item1);
         }
+        generator.generateXml(output, "test");
+        generator.generateJson(output, "test");
         generator.generateCsv(output, "test");
+        generator.generateFixedLength(output, "test");
     }
 }

@@ -123,7 +123,7 @@ public class MessageParser {
 
     public static void main(String[] args) {
         MessageParser parser = new MessageParser();
-        String[] files = {"login.xml"};
+        String[] files = {"test001.xml", "test002.xml", "test003.xml", "test004.xml"};
         try {
             ArrayList<Message> res1 = parser.parseFiles(files);
             for (Message m : res1)

@@ -1,0 +1,10 @@
+10,10,4
+name,messageGuid,senderIp,serviceId,requestTime,login,password,error-code,error-description
+data-type,string,string,string,long,string,string,string,string
+default-value,00000000,127.0.0.1,echo,0,,,,
+is-mandatory,true,true,true,true,false,false,false,false
+value,W00000000011,localhost,login,201901311331809,login05,qwerty,,
+value,W00000000012,localhost,error,201901311331811,,,ERR1006,Error reason text (for error messages only)
+value,W00000000013,localhost,login,201901311331814,login06,qwerty,,
+value,W00000000014,localhost,error,201901311331816,,,ERR1007,Error reason text (for error messages only)
+value,W00000000015,localhost,login,201901311331820,login07,qwerty,,

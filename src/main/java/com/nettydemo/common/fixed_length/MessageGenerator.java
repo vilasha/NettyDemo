@@ -8,9 +8,7 @@ import com.nettydemo.common.fixed_length.entities.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class MessageGenerator {
@@ -47,6 +45,46 @@ public class MessageGenerator {
             objectMapper.writeValue(
                     new FileOutputStream(filePrefix + String.format("%03d", fileCounter) + ".json"),
                     message);
+        }
+    }
+
+    public void generateCsv(ArrayList<Message> messages, String filePrefix) throws FileNotFoundException {
+        generateCsv(messages, filePrefix, LINES_PER_MESSAGE);
+    }
+
+    public void generateCsv(ArrayList<Message> messages, String filePrefix, int linesPerMessage) throws FileNotFoundException {
+        ArrayList<MessageStructure> packedMessages = packMessages(messages, linesPerMessage);
+        int fileCounter = 0;
+        for (MessageStructure message : packedMessages) {
+            fileCounter++;
+            linesPerMessage = message.getFields().get(0).getValues().size();
+            StringBuilder header = new StringBuilder();
+            StringBuilder name = new StringBuilder("name");
+            StringBuilder dataType = new StringBuilder("data-type");
+            StringBuilder defaultValue = new StringBuilder("default-value");
+            StringBuilder isMandatory = new StringBuilder("is-mandatory");
+            StringBuilder[] values = new StringBuilder[linesPerMessage];
+            for (int i = 0; i < linesPerMessage; i++)
+                values[i] = new StringBuilder("value");
+            header.append(message.getId()).append(",").append(message.getMessageNumber())
+                    .append(",").append(message.getTotalMessages());
+            for (MessageField field : message.getFields()) {
+                name.append(",").append(field.getName());
+                dataType.append(",").append(field.getDataType());
+                defaultValue.append(",").append(field.getDefaultValue());
+                isMandatory.append(",").append(field.isMandatory() ? "true" : "false");
+                for (int i = 0; i < linesPerMessage; i++)
+                    values[i].append(",").append(field.getValues().get(i));
+            }
+            PrintWriter pw = new PrintWriter(new File(filePrefix + String.format("%03d", fileCounter) + ".csv"));
+            pw.write(header.toString() + "\n");
+            pw.write(name.toString() + "\n");
+            pw.write(dataType.toString() + "\n");
+            pw.write(defaultValue.toString() + "\n");
+            pw.write(isMandatory.toString() + "\n");
+            for (int i = 0; i < linesPerMessage; i++)
+                pw.write(values[i].toString() + "\n");
+            pw.close();
         }
     }
 
@@ -185,7 +223,6 @@ public class MessageGenerator {
             item1.setErrorDescription("Error reason text (for error messages only)");
             output.add(item1);
         }
-        generator.generateXml(output, "test");
-        generator.generateJson(output, "test");
+        generator.generateCsv(output, "test");
     }
 }

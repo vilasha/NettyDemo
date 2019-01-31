@@ -105,7 +105,44 @@ public class MessageParser {
     }
 
     private MessageStructure parseCsv(byte[] mapData) {
-        return null;
+        String[] lines = (new String(mapData)).split("\n");
+        MessageStructure result = new MessageStructure();
+        String[] items = lines[0].split(",",-1);
+        result.setId(Integer.parseInt(items[0]));
+        result.setMessageNumber(Integer.parseInt(items[1]));
+        result.setTotalMessages(Integer.parseInt(items[2]));
+        ArrayList<MessageField> fields = new ArrayList<>();
+        result.setFields(fields);
+        for (int i = 1; i < lines.length; i++) {
+            items = lines[i].split(",", -1);
+            switch(items[0]) {
+                case "name":
+                    for (int j = 1; j < items.length; j++) {
+                        MessageField f = new MessageField();
+                        f.setName(items[j]);
+                        f.setValues(new ArrayList<>());
+                        fields.add(f);
+                    }
+                    break;
+                case "data-type":
+                    for (int j = 1; j < items.length; j++)
+                        fields.get(j-1).setDataType(items[j]);
+                    break;
+                case "default-value":
+                    for (int j = 1; j < items.length; j++)
+                        fields.get(j-1).setDefaultValue(items[j]);
+                    break;
+                case "is-mandatory":
+                    for (int j = 1; j < items.length; j++)
+                        fields.get(j-1).setMandatory(Boolean.parseBoolean(items[j]));
+                    break;
+                case "value":
+                    for (int j = 1; j < items.length; j++)
+                        fields.get(j-1).getValues().add(items[j]);
+                    break;
+            }
+        }
+        return result;
     }
 
     private MessageStructure parseFixedLength(byte[] mapData) {
@@ -121,7 +158,7 @@ public class MessageParser {
 
     public static void main(String[] args) throws IOException, JAXBException {
         MessageParser parser = new MessageParser();
-        String[] files = {"test001.json", "test002.json", "test003.json", "test004.json"};
+        String[] files = {"test001.csv", "test002.csv", "test003.csv", "test004.csv"};
         ArrayList<Message> res1 = parser.parseFiles(files);
         for (Message m : res1)
             System.out.println(m.toString());

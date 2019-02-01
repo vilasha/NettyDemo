@@ -1,18 +1,18 @@
-package com.nettydemo.common.entities;
+package com.nettydemo.not_used.entities;
 
 import java.io.Serializable;
 
 /**
- * Wrapper for messages sent from client to server
+ * Wrapper for messages sent from server to client
  * Contains header and object that being sent (message body)
  */
-public class RequestMessage implements Serializable, Cloneable {
+public class ResponseMessage implements Serializable, Cloneable {
     /**
      * Client IP
      */
     private String senderIp;
     /**
-     * Command what to do with this object on server side
+     * Command what server did with the incoming object
      */
     private String serviceId;
     /**
@@ -20,9 +20,13 @@ public class RequestMessage implements Serializable, Cloneable {
      */
     private String messageGuid;
     /**
-     * Date and time when the object was sent
+     * Date and time when the answer was sent
      */
-    private long requestTime;
+    private long responseTime;
+    /**
+     * Indicates success or failure ('S' or 'F" accordingly)
+     */
+    private char responseCode;
     /**
      * Content. The object that is being sent to the server
      */
@@ -57,12 +61,20 @@ public class RequestMessage implements Serializable, Cloneable {
         this.messageGuid = messageGuid;
     }
 
-    public long getRequestTime() {
-        return requestTime;
+    public long getResponseTime() {
+        return responseTime;
     }
 
-    public void setRequestTime(long requestTime) {
-        this.requestTime = requestTime;
+    public void setResponseTime(long responseTime) {
+        this.responseTime = responseTime;
+    }
+
+    public char getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(char responseCode) {
+        this.responseCode = responseCode;
     }
 
     public Object getMessageBody() {
@@ -83,11 +95,12 @@ public class RequestMessage implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "RequestMessage{" +
+        return "ResponseMessage{" +
                 "senderIp='" + senderIp + '\'' +
                 ", serviceId='" + serviceId + '\'' +
                 ", messageGuid='" + messageGuid + '\'' +
-                ", requestTime=" + requestTime +
+                ", responseTime=" + responseTime +
+                ", responseCode=" + responseCode +
                 ", messageBodyType=" + messageBodyType +
                 '}';
     }

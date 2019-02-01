@@ -1,4 +1,4 @@
-package com.nettydemo.common.milestone2.entities;
+package com.nettydemo.not_used.entities;
 
 public abstract class Message {
     private String messageGuid;

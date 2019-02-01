@@ -1,7 +1,8 @@
-package com.nettydemo.common;
+package com.nettydemo.not_used;
 
-import com.nettydemo.common.entities.RequestMessage;
-import com.nettydemo.common.entities.ResponseMessage;
+import com.nettydemo.common.Utils;
+import com.nettydemo.not_used.entities.RequestMessage;
+import com.nettydemo.not_used.entities.ResponseMessage;
 
 import java.io.*;
 import java.net.InetAddress;

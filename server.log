@@ -1,0 +1,68 @@
+Feb 01, 2019 5:04:31 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 000000000000118   192.168.99.1               login        K00000000001201902011704310               login            password
+Feb 01, 2019 5:05:03 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 000000000000118   192.168.99.1               login        K00000000002201902011705140                asdf              qwerty
+Feb 01, 2019 5:05:14 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 000000000000078   192.168.99.1                exit        K00000000003201902011705497
+Feb 01, 2019 5:16:05 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 000000000000118   192.168.99.1               login        H00000000001201902011716909               login            password
+Feb 01, 2019 5:17:12 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 000000000000118   192.168.99.1               login        H00000000002201902011717099                asdf              qwerty
+Feb 01, 2019 5:19:28 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 000000000000118   192.168.99.1               login        I00000000001201902011719658               login            password
+Feb 01, 2019 5:21:38 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        A00000000001201902011721398               login*****
+Feb 01, 2019 5:30:55 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        L00000000001201902011730117                asdf*****
+Feb 01, 2019 5:31:52 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        L00000000002201902011731417               login*****
+Feb 01, 2019 5:32:32 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000078   192.168.99.1                exit        L00000000003201902011732383
+Feb 01, 2019 5:40:12 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        U00000000001201902011740256                asdf*****
+Feb 01, 2019 5:40:17 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        U00000000002201902011740276               login*****
+Feb 01, 2019 5:41:07 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000078   192.168.99.1                exit        U00000000003201902011741502
+Feb 01, 2019 5:43:57 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        I00000000001201902011743372                asdf*****
+Feb 01, 2019 5:44:06 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        I00000000002201902011744796               login*****
+Feb 01, 2019 5:44:33 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000078   192.168.99.1                exit        I00000000003201902011744792
+Feb 01, 2019 5:47:14 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        O00000000001201902011747645                asdf*****
+Feb 01, 2019 5:47:20 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        O00000000002201902011747805               login*****
+Feb 01, 2019 5:49:11 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        O00000000003201902011749875               login*****
+Feb 01, 2019 5:50:32 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        G00000000001201902011750151                asdf*****
+Feb 01, 2019 5:50:36 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        G00000000002201902011750680               login*****
+Feb 01, 2019 5:52:07 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        H00000000001201902011752875                asdf*****
+Feb 01, 2019 5:52:10 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: Received a message: 00000118   192.168.99.1               login        H00000000002201902011752741               login*****
+Feb 01, 2019 6:08:08 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: 00000118   192.168.99.1               login        E00000000001201902011808782               login*****
+Feb 01, 2019 6:08:26 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: 00000118   192.168.99.1               login        E00000000002201902011808069                asdf*****
+Feb 01, 2019 6:08:30 PM com.nettydemo.server.async.AsyncServerHandler channelRead0
+INFO: 00000078   192.168.99.1                exit        E00000000003201902011808102
+Feb 01, 2019 6:11:32 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000118   192.168.99.1               login        Q00000000001201902011811562             fghfghj*****
+Feb 01, 2019 6:11:35 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000118   192.168.99.1               login        Q00000000002201902011811158               login*****
+Feb 01, 2019 6:11:46 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000278   192.168.99.1                info        Q00000000003201902011811308                                                                                                                                                                                                    asdf
+Feb 01, 2019 6:11:46 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000278   192.168.99.1                info        Q00000000004201902011811818                                                                                                                                                                                                    asdf
+Feb 01, 2019 6:11:47 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000278   192.168.99.1                info        Q00000000005201902011811832                                                                                                                                                                                                    asdf
+Feb 01, 2019 6:11:47 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000278   192.168.99.1                info        Q00000000006201902011811858                                                                                                                                                                                                    asdf
+Feb 01, 2019 6:11:48 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000278   192.168.99.1                info        Q00000000007201902011811912                                                                                                                                                                                                    asdf
+Feb 01, 2019 6:12:12 PM com.nettydemo.server.sync.SyncServerHandler channelRead0
+INFO: 00000078   192.168.99.1                exit        Q00000000008201902011812082

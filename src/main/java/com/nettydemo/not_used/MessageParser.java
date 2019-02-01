@@ -1,7 +1,7 @@
-package com.nettydemo.common.milestone2;
+package com.nettydemo.not_used;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nettydemo.common.milestone2.entities.*;
+import com.nettydemo.not_used.entities.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

@@ -1,15 +1,17 @@
 package com.nettydemo.server.async;
 
-import com.nettydemo.common.Codec;
-import com.nettydemo.common.entities.RequestMessage;
-import com.nettydemo.common.entities.ResponseMessage;
-import com.nettydemo.server.MessageProcessor;
-import io.netty.channel.*;
+import com.nettydemo.server.ServerSenderReceiver;
+import com.nettydemo.server.ServerService;
+import com.nettydemo.server.sync.SyncServerHandler;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.util.Date;
-import java.util.logging.*;
+import java.net.UnknownHostException;
+import java.text.ParseException;
+import java.util.logging.Handler;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Handler is added to server's inbound pipeline, and processes all
@@ -28,51 +30,33 @@ import java.util.logging.*;
  * and when client disconnects, log file is closed
  */
 @ChannelHandler.Sharable
-public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
+public class AsyncServerHandler extends SimpleChannelInboundHandler<String>
+                                implements ServerSenderReceiver {
 
     /**
      * Logger, that will contain all received decoded messages
      */
     private static Logger log;
 
-    /**
-     * Indicates if received strings are parts of a large encoded object
-     */
-    private boolean readingMultiple = false;
-    /**
-     * Indicates number of the part
-     */
-    private int packageCounter;
-    /**
-     * Contains all the parts received so far
-     */
-    private String[] multiplePackage;
+    private ServerService service = new ServerService();
+    private ChannelHandlerContext ctx;
 
     /**
      * Method is called when a client connects to the channel
      * It opens a log file and sends to the clients welcome message
      * (in our case list of available instructions)
-     * @param ctx channel context
+     * @param context channel context
      * @throws Exception can be thrown by Netty or log file writing
      */
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    public void channelActive(ChannelHandlerContext context) throws Exception {
+        this.ctx = context;
         ctx.fireChannelActive();
-        log = Logger.getLogger(AsyncServerHandler.class.getName());
-        FileHandler logHandler;
-        try {
-            logHandler = new FileHandler("server.log", true);
-            logHandler.setFormatter(new SimpleFormatter());
-            log.addHandler(logHandler);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ctx.write("Connected to " + InetAddress.getLocalHost().getHostName()
-                + " at " + new Date()
-                + ". Available commands: \"list10\"(instead of 10 can be any other integer)," +
-                " \"login1\", \"login2\", \"exit\"\r\n");
-        ctx.flush();
+        log = Logger.getLogger(SyncServerHandler.class.getName());
+        ServerSenderReceiver.initLogger(log);
+        service.doWelcome(this);
     }
+
 
     /**
      * Method is called when there is an inbound message from the client
@@ -86,60 +70,24 @@ public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
      * If server receives an unknown command, it asks "Did you say " + message
      * @param ctx channel context
      * @param request message
-     * @throws Exception can be thrown by Netty
      */
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, String request) throws Exception {
-        String response;
-        ChannelFuture lastFuture;
+    protected void channelRead0(ChannelHandlerContext ctx, String request) throws ParseException, InterruptedException, UnknownHostException {
+        log.info(replacePassword(request));
+        service.processRequest(this, request);
+    }
 
-        if (request.isEmpty()) {
-            response = "Please type something.\r\n";
-            ctx.write(response);
-        } else if ("exit".equals(request.toLowerCase())) {
-            response = "Closing connection. Please wait\r\n";
-            lastFuture = ctx.write(response);
-            lastFuture.addListener(ChannelFutureListener.CLOSE);
-        } else if(request.toLowerCase().contains("compositemessage")) {
-            int totalPackages = Integer.parseInt(request.substring(request.indexOf('=')+1));
-            packageCounter = 0;
-            readingMultiple = true;
-            multiplePackage = new String[totalPackages];
-//            System.out.println("composite message " + totalPackages);
-        } else if (readingMultiple) {
-            if (packageCounter < multiplePackage.length - 1) {
-                multiplePackage[packageCounter] = request;
-                packageCounter++;
-            } else {
-                multiplePackage[packageCounter] = request;
-                readingMultiple = false;
-                Codec p = new Codec();
-                RequestMessage message = (RequestMessage) p.unpack(multiplePackage);
-
-                log.info("Received a message: " + message.toString());
-                log.info("Content type: " + message.getMessageBodyType().getName()
-                        + "; value: " + message.getMessageBody().toString());
-
-                ResponseMessage answer = MessageProcessor.process(message);
-                String[] packed = p.packWithoutWrapping(answer);
-                lastFuture = ctx.writeAndFlush("compositeMessage=" + String.valueOf(packed.length) + "\r\n");
-                if (lastFuture != null)
-                    lastFuture.sync();
-                for (String item : packed) {
-                    lastFuture = ctx.writeAndFlush(item + "\r\n");
-                    if (lastFuture != null)
-                        lastFuture.sync();
-                }
-            }
-        } else {
-            response = "Did you say '" + request + "'?\r\n";
-            ctx.write(response);
-        }
+    private String replacePassword(String msg) {
+        String serviceId = msg.substring(23, 43).toLowerCase().trim();
+        if ("login".equals(serviceId))
+            return msg.substring(0, 98) + "*****";
+        else
+            return msg;
     }
 
     /**
      * Method is called when all the messages from the channel are read
-     * @param ctx
+     * @param ctx channel context
      */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
@@ -170,5 +118,10 @@ public class AsyncServerHandler extends SimpleChannelInboundHandler<String> {
         LogManager.getLogManager().reset();
         cause.printStackTrace();
         ctx.close();
+    }
+
+    @Override
+    public ChannelHandlerContext getContext() {
+        return ctx;
     }
 }

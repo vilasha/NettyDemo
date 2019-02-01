@@ -1,0 +1,132 @@
+Feb 01, 2019 5:18:36 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message:                                                                                             Connected to DESKTOP-9FGE56A at Fri Feb 01 17:18:35 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:30:38 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: Connected to DESKTOP-9FGE56A at Fri Feb 01 17:30:37 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:30:55 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message:   Err001:                                                                                                                                                                              Incorrect login or password
+Feb 01, 2019 5:31:52 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: About 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:31:52 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: ancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:31:52 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: th of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:31:52 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: ctor or playwright.
+Feb 01, 2019 5:32:32 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: Wait for connection to close
+Feb 01, 2019 5:39:57 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: Connected to DESKTOP-9FGE56A at Fri Feb 01 17:39:57 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:40:12 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: Err001: Incorrect login or password
+Feb 01, 2019 5:40:17 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: About 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:40:17 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: ancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:40:17 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: th of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:40:17 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: ctor or playwright.
+Feb 01, 2019 5:41:07 PM com.nettydemo.client.async.AsyncClientHandler messageReceived
+INFO: Received a message: Wait for connection to close
+Feb 01, 2019 5:43:40 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        P00000000001201902011743523S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 17:43:40 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:43:57 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000287   192.168.99.1               error        P00000000002201902011743424F  Err001                                                                                                                                                                             Incorrect login or password
+Feb 01, 2019 5:44:06 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        P00000000003201902011744812SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:44:06 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        P00000000004201902011744815Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:44:06 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        P00000000005201902011744815Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:44:06 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        P00000000006201902011744822S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 5:44:33 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        P00000000007201902011744805S                                                                                                                                                                            Wait for connection to close
+Feb 01, 2019 5:46:46 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        Z00000000001201902011746663S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 17:46:46 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:47:14 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000287   192.168.99.1               error        Z00000000002201902011747695F  Err001                                                                                                                                                                             Incorrect login or password
+Feb 01, 2019 5:47:20 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000003201902011747818SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:47:20 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000004201902011747821Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:47:20 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000005201902011747824Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:47:20 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000006201902011747827S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 5:49:11 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000007201902011749895SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:49:11 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000008201902011749899Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:49:11 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000009201902011749901Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:49:11 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        Z00000000010201902011749904S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 5:50:21 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        C00000000001201902011750175S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 17:50:21 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:50:32 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000287   192.168.99.1               error        C00000000002201902011750200F  Err001                                                                                                                                                                             Incorrect login or password
+Feb 01, 2019 5:50:36 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        C00000000003201902011750692SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:50:36 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        C00000000004201902011750696Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:50:36 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        C00000000005201902011750698Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:50:36 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        C00000000006201902011750702S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 5:52:01 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        W00000000001201902011752537S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 17:52:01 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 5:52:07 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000287   192.168.99.1               error        W00000000002201902011752932F  Err001                                                                                                                                                                             Incorrect login or password
+Feb 01, 2019 5:52:10 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        W00000000003201902011752752SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 5:52:10 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        W00000000004201902011752754Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 5:52:10 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        W00000000005201902011752754Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 5:52:10 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        W00000000006201902011752754S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 5:57:45 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        L00000000001201902011757263S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 17:57:45 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 6:01:39 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        L00000000001201902011801771S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 18:01:39 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 6:05:01 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        X00000000001201902011805352S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 18:05:01 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 6:08:01 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        F00000000001201902011808823S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 18:08:00 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 6:08:08 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        F00000000002201902011808838SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 6:08:08 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        F00000000003201902011808843Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 6:08:08 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        F00000000004201902011808843Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 6:08:08 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        F00000000005201902011808851S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 6:08:26 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000287   192.168.99.1               error        F00000000006201902011808086F  Err001                                                                                                                                                                             Incorrect login or password
+Feb 01, 2019 6:08:30 PM com.nettydemo.client.async.AsyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        F00000000007201902011808112S                                                                                                                                                                            Wait for connection to close
+Feb 01, 2019 6:11:25 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000001201902011811902S                                                                                            Connected to DESKTOP-9FGE56A at Fri Feb 01 18:11:24 GMT 2019. Available commands: "login1", "login2", "exit"
+Feb 01, 2019 6:11:32 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000287   192.168.99.1               error        G00000000002201902011811548F  Err001                                                                                                                                                                             Incorrect login or password
+Feb 01, 2019 6:11:35 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        G00000000003201902011811618SAbout 150 years after his death, questions arose about the authorship of William Shakespeare's plays. Scholars and literary critics began to float names like Christopher Marlowe, Edward de Vere and Fr
+Feb 01, 2019 6:11:35 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        G00000000004201902011811622Sancis Bacon — men of more known backgrounds, literary accreditation, or inspiration — as the true authors of the plays. Much of this stemmed from the sketchy details of Shakespeare's life and the dear
+Feb 01, 2019 6:11:35 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        G00000000005201902011811628Sth of contemporary primary sources. Official records from the Holy Trinity Church and the Stratford government record the existence of a William Shakespeare, but none of these attest to him being an a
+Feb 01, 2019 6:11:35 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00001116   192.168.99.1                info        G00000000006201902011811632S                                                                                                                                                                                     ctor or playwright.
+Feb 01, 2019 6:11:46 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000007201902011811808S                                                                                                                                                                                                      ok
+Feb 01, 2019 6:11:46 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000008201902011811832S                                                                                                                                                                                                      ok
+Feb 01, 2019 6:11:47 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000009201902011811872S                                                                                                                                                                                                      ok
+Feb 01, 2019 6:11:47 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000010201902011811901S                                                                                                                                                                                                      ok
+Feb 01, 2019 6:11:48 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000011201902011811922S                                                                                                                                                                                                      ok
+Feb 01, 2019 6:12:12 PM com.nettydemo.client.sync.SyncClientHandler channelRead0
+INFO: 00000279   192.168.99.1                info        G00000000012201902011812242S                                                                                                                                                                            Wait for connection to close

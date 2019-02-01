@@ -17,7 +17,6 @@ import io.netty.handler.logging.LoggingHandler;
  */
 @SuppressWarnings("deprecation")
 public class SyncServer {
-    private static final int PORT = Utils.getInstance().getPort();
 
     public static void main(String[] args) throws Exception {
         EventLoopGroup bossGroup = new OioEventLoopGroup(1);
@@ -30,7 +29,8 @@ public class SyncServer {
                     .option(ChannelOption.SO_BACKLOG, 100)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new SyncServerInitializer());
-            Channel ch = serverBootstrap.bind(PORT).sync().channel();
+            Channel ch = serverBootstrap.bind(Utils.getInstance().getPort())
+                    .sync().channel();
             System.out.println("Waiting for clients");
             ch.closeFuture().sync();
         } finally {

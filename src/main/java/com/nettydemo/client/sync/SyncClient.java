@@ -22,8 +22,6 @@ import java.io.InputStreamReader;
  *
  * And then waits commands from user on standard input (keyboard)
  *
- * "list10" will create an array list with 10 elements and send it to server
- *
  * "login1" and "login2" will create a LoginMessage object, login1 will pass
  * on the server, login2 will fail
  *
@@ -55,6 +53,11 @@ public class SyncClient implements ClientSender {
         client.start();
     }
 
+    /**
+     * Non-static version of main application
+     * @throws IOException inherited from ClientController methods
+     * @throws InterruptedException inherited from ClientController methods
+     */
     private void start() throws IOException, InterruptedException {
         EventLoopGroup group = new OioEventLoopGroup();
 
@@ -86,20 +89,27 @@ public class SyncClient implements ClientSender {
                     controller.sendExit(this);
                     channel.closeFuture().sync();
                     break;
-                } else {
-                    for (int i = 0; i < 5; i++)
-                        controller.sendInfo(this, line);
-                }
+                } else
+                    controller.sendInfo(this, line);
             }
         } finally {
             group.shutdownGracefully();
         }
     }
 
+    /**
+     * Returns open channel. It's mainly for ClientController could write in it
+     * @return channel
+     */
     public Channel getChannel() {
         return channel;
     }
 
+    /**
+     * Returns last future (delayed response from server), so ClientController
+     * could sync() it, i.e. wait till previous message was succesfully sent
+     * @return channel future
+     */
     public ChannelFuture getLastFuture() {
         return lastFuture;
     }

@@ -14,16 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * Handler is added to server's inbound pipeline, and processes all
- * incoming messages. This handler accepts only String messages. If a client
- * has sent us an object, this object will be encoded with Codec class
- * and split on several messages of fixed length.
- *
- * This class detects if an object was sent (first string will be "compositeMessage"
- * with number of parts), then receives all te parts of the message one by one
- * When number of parts received reaches declared number of parts at
- * compositeMessage command, it retrieves encoded object using Codec class
- *
- * If a command "exit" received, server closes the connection
+ * incoming messages. This handler accepts only String messages
  *
  * Log file is opened only when connection with a client is established
  * and when client disconnects, log file is closed
@@ -58,15 +49,9 @@ public class SyncServerHandler extends SimpleChannelInboundHandler<String>
 
 
     /**
-     * Method is called when there is an inbound message from the client
-     * It defines what server should do with the message. If it is an empty
-     * string it answers "Please type something", if an object was sent
-     * (first string will be "compositeMessage" with number of parts), then
-     * receives all te parts of the message one by one.  When number of parts
-     * received reaches declared number of parts at compositeMessage command,
-     * it retrieves encoded object using Codec class
-     * If the command was "exit", server closes the connection with the client
-     * If server receives an unknown command, it asks "Did you say " + message
+     * Method is called when there is an inbound message from the client,
+     * writes it into LOG and redirects the message to ServerService for
+     * further processing
      * @param ctx channel context
      * @param request message
      */
@@ -76,6 +61,11 @@ public class SyncServerHandler extends SimpleChannelInboundHandler<String>
         service.processRequest(this, request);
     }
 
+    /**
+     * Method encodes password with ***** before writing the message into LOG
+     * @param msg response from server
+     * @return response from server with hidden password
+     */
     private String replacePassword(String msg) {
         String serviceId = msg.substring(23, 43).toLowerCase().trim();
         if ("login".equals(serviceId))
@@ -119,6 +109,10 @@ public class SyncServerHandler extends SimpleChannelInboundHandler<String>
         ctx.close();
     }
 
+    /**
+     * Returns last used ChannelHandlerContext
+     * @return ChannelHandlerContext
+     */
     @Override
     public ChannelHandlerContext getContext() {
         return ctx;

@@ -8,6 +8,11 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * Interface for both AsyncClient and SyncClient,
+ * so ClientController class could work with both of them not
+ * even knowing which implementation is at the moment
+ */
 public interface ClientSender {
     Channel getChannel();
     ChannelFuture getLastFuture();

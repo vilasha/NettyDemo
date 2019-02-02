@@ -7,6 +7,12 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * Interface for AsyncServerHandler and SyncServerHandler,
+ * so ServerService could process messages from either of
+ * them, not even knowing which implementation of ServerSenderReceiver
+ * is active at the moment
+ */
 public interface ServerSenderReceiver {
 
     ChannelHandlerContext getContext();

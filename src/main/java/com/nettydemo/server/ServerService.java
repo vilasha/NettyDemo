@@ -11,8 +11,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Business-logic of server side of application
+ * It receives fixed-length offset based messages from client,
+ * decodes them and depending on the message content gives an
+ * answer. For "login" command it compares credentials to
+ * "login" + "password", if login-password are correct, sends
+ * a big quote about Shakespeare (quote is too big to go into
+ * one message, so it will be split on several messages),
+ * otherwise server produces an error message
+ * For "info" command it parses the message and answers "ok"
+ * For "exit" command it parses the message and closes the
+ * connectio with the client
+ */
 public class ServerService {
 
+    /**
+     * Method distributes messages from client between methods
+     * parseLogin, parseInfo or closes the connection with the client
+     * @param server who called this method (AsyncServerHandler or SyncServerHandler)
+     * @param msg message from the client
+     * @throws ParseException inherited from parseLogin and parseInfo methods
+     * @throws InterruptedException inherited from parseLogin and parseInfo methods
+     * @throws UnknownHostException inherited from parseLogin and parseInfo methods
+     */
     public void processRequest(ServerSenderReceiver server, String msg) throws ParseException, InterruptedException, UnknownHostException {
         String serviceId = msg.substring(23, 43).toLowerCase().trim();
         switch (serviceId) {
@@ -26,12 +48,27 @@ public class ServerService {
         }
     }
 
+    /**
+     * Sends a welcome message to client once a connection was established
+     * @param server who called this method (AsyncServerHandler or SyncServerHandler)
+     * @throws UnknownHostException inherited from sendInfo method
+     * @throws InterruptedException inherited from sendInfo method
+     */
     public void doWelcome(ServerSenderReceiver server) throws UnknownHostException, InterruptedException {
         sendInfo(server, "Connected to " + InetAddress.getLocalHost().getHostName()
                 + " at " + new Date() + ". "
                 + "Available commands: \"login1\", \"login2\", \"exit\"");
     }
 
+    /**
+     * Method packs information for a client into one or several messages
+     * and sends them one by one
+     * @param server who called this method (AsyncServerHandler or SyncServerHandler)
+     * @param message info to send
+     * @return ChannelFuture to wait till message sending was succesfully finished
+     * @throws UnknownHostException can be thrown by InetAddress.getLocalHost()
+     * @throws InterruptedException can be thrown by ChannelFuture.sync()
+     */
     private ChannelFuture sendInfo(ServerSenderReceiver server, String message) throws InterruptedException, UnknownHostException {
         ChannelHandlerContext ctx = server.getContext();
         int messageCount = (int)Math.ceil((double)message.length() / 200);
@@ -61,6 +98,14 @@ public class ServerService {
         return future;
     }
 
+    /**
+     * Method packs (adds header, makes fixed length) an error
+     * @param server who called this method (AsyncServerHandler or SyncServerHandler)
+     * @param errorCode 8 symbol code of the error
+     * @param errorDescription long description of the error
+     * @throws UnknownHostException can be thrown by InetAddress.getLocalHost()
+     * @throws InterruptedException can be thrown by ChannelFuture.sync()
+     */
     private void sendError(ServerSenderReceiver server, String errorCode, String errorDescription) throws UnknownHostException, InterruptedException {
         ChannelHandlerContext ctx = server.getContext();
         StringBuilder sb = new StringBuilder();
@@ -84,6 +129,17 @@ public class ServerService {
         future.sync();
     }
 
+    /**
+     * Method parses inbound message from client with "login" command.
+     * Then it compares credentials to "login" + "password", if login-password are correct,
+     * sends a big quote about Shakespeare (quote is too big to go into one message,
+     * so it will be split on several messages), otherwise server produces an error message
+     * @param server who called this method (AsyncServerHandler or SyncServerHandler)
+     * @param msg credential from client
+     * @throws ParseException can be thrown by SimpleDateFormat.parse
+     * @throws UnknownHostException can be thrown by InetAddress.getLocalHost()
+     * @throws InterruptedException inherited from sendInfo and sendError methods
+     */
     private void parseLogin(ServerSenderReceiver server, String msg) throws ParseException, UnknownHostException, InterruptedException {
         long messageLen = Long.parseLong(msg.substring(0, 8).trim());
         String senderIP = msg.substring(8, 23).trim();
@@ -108,6 +164,14 @@ public class ServerService {
             sendError(server, "Err001", "Incorrect login or password");
     }
 
+    /**
+     * Parses an info message from a client and answers "ok"
+     * @param server who called this method (AsyncServerHandler or SyncServerHandler)
+     * @param msg info from the client
+     * @throws ParseException can be thrown by SimpleDateFormat.parse
+     * @throws UnknownHostException can be thrown by InetAddress.getLocalHost()
+     * @throws InterruptedException inherited from sendInfo method
+     */
     private void parseInfo(ServerSenderReceiver server, String msg) throws ParseException, UnknownHostException, InterruptedException {
         long messageLen = Long.parseLong(msg.substring(0, 8).trim());
         String senderIP = msg.substring(8, 23).trim();
